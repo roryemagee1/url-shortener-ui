@@ -96,7 +96,10 @@ describe("Home Page Tests", () => {
       .get('button')
       .click()
     
-    cy.intercept('POST', `http://localhost:3001/api/v1/urls`).as('getPost')
+    cy.intercept('POST', `http://localhost:3001/api/v1/urls`)
+    .as('getPost')
+    
+    cy.visit('http://localhost:3000/')
 
     cy.intercept('GET', `http://localhost:3001/api/v1/urls`, {
       fixture: 'getDataAfterPost.json'
