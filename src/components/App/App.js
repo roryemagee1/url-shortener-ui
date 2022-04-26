@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getUrls } from '../../apiCalls';
+import apiCalls from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
@@ -13,7 +13,7 @@ export class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await getUrls();
+    const response = await apiCalls.getUrls();
     const data = await response;
     this.setState({ urls: data.urls});
   }
