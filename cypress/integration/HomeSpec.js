@@ -45,18 +45,37 @@ describe("Home Page Tests", () => {
         .and('eq', 'title')
 
     cy.get('form')
-    .get('input').eq(1)
-      .should('have.attr', 'name')
-      .and('eq', 'urlToShorten')
+      .get('input').eq(1)
+        .should('have.attr', 'name')
+        .and('eq', 'urlToShorten')
     
     cy.get('form')
-    .get('button')
-      .contains('Shorten Please!')
+      .get('button')
+        .contains('Shorten Please!')
 
   })
 
   it('When a user fills out the form, the information is reflected in the input fields', () => {
+    cy.visit('http://localhost:3000/')
+    cy.intercept('GET', `http://localhost:3001/api/v1/urls`, {
+      fixture: 'getData.json'
+      }).as('getData');
+    
+    cy.get('form')
+      .get('input').eq(0)
+        .type('Test')
+    
+    cy.get('form')
+      .get('input').eq(0)
+        .should('have.value', 'Test')
 
+    cy.get('form')
+      .get('input').eq(1)
+        .type('Test')
+    
+    cy.get('form')
+      .get('input').eq(1)
+        .should('have.value', 'Test')
   })
 
 })
