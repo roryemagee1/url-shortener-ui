@@ -15,7 +15,8 @@ class UrlForm extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault();
+    // e.preventDefault();
+    this.props.postData(this.state.title, this.state.urlToShorten);
     this.clearInputs();
   }
 

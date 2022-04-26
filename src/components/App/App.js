@@ -12,10 +12,19 @@ export class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = async () => {
     const response = await apiCalls.getUrls();
     const data = await response;
-    this.setState({ urls: data.urls});
+    this.setState({ urls: data.urls });
+  }
+
+  postData = (title, urlToShorten) => {
+    apiCalls.postUrls(title, urlToShorten);
+    this.getData();
   }
 
   render() {
@@ -23,7 +32,7 @@ export class App extends Component {
       <main className="App">
         <header>
           <h1>URL Shortener</h1>
-          <UrlForm />
+          <UrlForm postData={this.postData}/>
         </header>
         <UrlContainer urls={this.state.urls}/>
       </main>
