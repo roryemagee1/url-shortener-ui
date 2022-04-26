@@ -34,6 +34,24 @@ describe("Home Page Tests", () => {
   })
 
   it('When a user visits the page, they can view the Form with the proper inputs', () => {
+    cy.visit('http://localhost:3000/')
+    cy.intercept('GET', `http://localhost:3001/api/v1/urls`, {
+      fixture: 'getData.json'
+      }).as('getData');
+
+    cy.get('form')
+      .get('input').eq(0)
+        .should('have.attr', 'name')
+        .and('eq', 'title')
+
+    cy.get('form')
+    .get('input').eq(1)
+      .should('have.attr', 'name')
+      .and('eq', 'urlToShorten')
+    
+    cy.get('form')
+    .get('button')
+      .contains('Shorten Please!')
 
   })
 
