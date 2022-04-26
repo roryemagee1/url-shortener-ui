@@ -22,8 +22,8 @@ export class App extends Component {
     this.setState({ urls: data.urls });
   }
 
-  postData = (title, urlToShorten) => {
-    apiCalls.postUrls(title, urlToShorten);
+  postData = (urlToShorten, title) => {
+    apiCalls.postUrls(urlToShorten, title);
     this.getData();
   }
 
