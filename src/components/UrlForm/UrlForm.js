@@ -14,8 +14,7 @@ class UrlForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit = e => {
-    // e.preventDefault();
+  handleSubmit = () => {
     this.props.postData(this.state.urlToShorten, this.state.title);
     this.clearInputs();
   }
@@ -43,7 +42,7 @@ class UrlForm extends Component {
           onChange={e => this.handleNameChange(e)}
         />
 
-        <button onClick={e => this.handleSubmit(e)}>
+        <button onClick={() => this.handleSubmit()}>
           Shorten Please!
         </button>
       </form>
