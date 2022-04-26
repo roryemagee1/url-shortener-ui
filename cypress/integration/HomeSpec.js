@@ -78,4 +78,29 @@ describe("Home Page Tests", () => {
         .should('have.value', 'Test')
   })
 
+  it('When a user fills out and submits the form, the new shortened URL is rendered', () => {
+    cy.visit('http://localhost:3000/')
+    cy.intercept('GET', `http://localhost:3001/api/v1/urls`, {
+      fixture: 'getData.json'
+      }).as('getData');
+    
+    cy.get('form')
+    .get('input').eq(0)
+      .type('Test 3')
+
+    cy.get('form')
+    .get('input').eq(1)
+      .type('https://google.com')
+    
+    cy.get('form')
+      .get('button')
+      .click()
+    
+    cy.intercept('POST', `http://localhost:3001/api/v1/urls`).as('getPost')
+
+    cy.intercept('GET', `http://localhost:3001/api/v1/urls`, {
+      fixture: 'getDataAfterPost.json'
+      }).as('getDataAfterPost');
+  })
+
 })
